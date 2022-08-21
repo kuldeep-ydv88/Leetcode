@@ -1,0 +1,42 @@
+class Solution {
+
+public boolean isPossible(int[] nums) {
+    //nums insert to map
+    //case 1. consecutive increasing
+    //case 2. length >= 3
+
+    HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+    HashMap<Integer, Integer> check = new HashMap<Integer, Integer>();
+
+    for(int num : nums) {
+        map.put(num, map.getOrDefault(num, 0) + 1);
+    }
+    
+    for(int num : nums) {
+        //case 2 after
+        if(map.get(num) == 0) continue;
+        
+        //case1 vaild
+        if(check.getOrDefault(num, 0) > 0) {
+            map.put(num, map.get(num) -1);
+            check.put(num, check.getOrDefault(num, 0) - 1);
+            check.put(num + 1, check.getOrDefault(num + 1, 0) + 1);                
+        }
+        
+        //case2 vaild
+        else if(map.getOrDefault(num, 0) > 0 && 
+                map.getOrDefault(num + 1, 0) > 0 &&
+                map.getOrDefault(num + 2, 0) > 0) {
+            map.put(num, map.get(num) - 1);
+            map.put(num + 1, map.get(num + 1) - 1);
+            map.put(num + 2, map.get(num + 2) - 1);
+            
+            //consecutive add
+            check.put(num + 3, check.getOrDefault(num + 3, 0) + 1);
+        }
+        
+        else return false;            
+    }
+return true;
+}
+}
