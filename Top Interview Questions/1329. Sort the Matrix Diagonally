@@ -1,0 +1,20 @@
+class Solution {
+    public int[][] diagonalSort(int[][] mat) {
+    for(int k = mat.length-1; k>=0; k--)
+    {
+        for(int i =0; i<k; i++)
+        {
+            for(int j =0; j+1<mat[i].length; j++)
+            {
+                if(mat[i][j]>mat[i+1][j+1])
+                {
+                    int temp = mat[i][j];
+                    mat[i][j] = mat[i+1][j+1];
+                    mat[i+1][j+1] = temp;
+                }
+            }
+        }
+    }
+    return mat;
+    }
+}
